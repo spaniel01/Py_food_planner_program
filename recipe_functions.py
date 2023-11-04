@@ -143,27 +143,23 @@ def edit_recipe(recipes):
                 return recipes
             elif user_in == 3:
                 print("These are the current ingredients:")
+                list_of_ingredients = []
                 counter = 0
                 for key in recipes[recipe_name].keys():
                     for key_internal, value in recipes[recipe_name][key].items():
                         if value > 0:
+                            list_of_ingredients.append(key_internal)
                             counter += 1
                             print(str(counter) + ". " + key_internal + " " + str(value))
-                user_in = input("Which ingredient would you like to delete? Please type the English name of the ingredient: ")
                 while True:
-                    for key in recipes[recipe_name].keys(): 
-                        for key_internal, value in recipes[recipe_name][key].items():
-                            print(key_internal, "  ", user_in )
-                            if user_in in key_internal:
-                                key_for_deletion = key_internal
-                                user_in = u_i_v.user_input_validation_y_n("Is " + key_for_deletion + " the ingredient you want to delete? Answer with 'y' or 'no': ")
-                                if user_in == "y":
-                                    print(recipes[recipe_name][key][key_for_deletion])
-                                    recipes[recipe_name][key][key_for_deletion] = 0
-                                    print(key_for_deletion, " deleted")
-                                    return recipes
-                            else:
-                                print("Ingredient not found, try again!")
+                    user_in = u_i_v.user_input_validation_start_of_word("Which ingredient would you like to delete? Please type the English name of the ingredient: ", list_of_ingredients)
+                    key_for_deletion = user_in
+                    user_in = u_i_v.user_input_validation_y_n("Is " + key_for_deletion + " the ingredient you want to delete? Answer with 'y' or 'no': ")
+                    if user_in == "y":
+                        print(111)
+                        recipes[recipe_name][key][key_for_deletion] = 0
+                        print(key_for_deletion, " deleted")
+                        return recipes
             elif user_in == 4:
                 print(recipes.items())
                 return recipes

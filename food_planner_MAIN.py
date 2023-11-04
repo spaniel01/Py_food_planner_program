@@ -33,9 +33,9 @@ def category_ingredients_sub_menu(recipes, ingredients):
 #        user_in = u_i_v_3.user_input_validation_int("Ingredients menu:\nWhat do you wish to do?\n1. Add new ingredient\n2. Edit ingredient\n3. Delete ingredient\n4. Return to the main menu", 4)
         if user_in == 1:
             user_in = u_i_v_3.user_input_validation_int("What do you wish to do?\n1. View categories and ingredients again\n2. Add a food category\n3. Rename food category\n4. Delete food category\n5. Exit", 5)
-            if user_in == 2:
+            if user_in == 1:
                 view_categories_and_ingredient(ingredients)
-            elif user_in == 1:
+            elif user_in == 2:
                 recipes, ingredients = add_new_food_cat(recipes, ingredients)
             elif user_in == 3:
                 recipes, ingredients = rename_food_cat(recipes, ingredients) 
