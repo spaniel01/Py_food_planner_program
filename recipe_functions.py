@@ -156,9 +156,9 @@ def edit_recipe(recipes):
                     key_for_deletion = user_in
                     user_in = u_i_v.user_input_validation_y_n("Is " + key_for_deletion + " the ingredient you want to delete? Answer with 'y' or 'no': ")
                     if user_in == "y":
-                        print(111)
-                        recipes[recipe_name][key][key_for_deletion] = 0
-                        print(key_for_deletion, " deleted")
+                        recipes[recipe_name][key].update({key_for_deletion:0})
+                        print(key_for_deletion, " deleted!!!")
+                        print(recipes[recipe_name][key][key_for_deletion])
                         return recipes
             elif user_in == 4:
                 print(recipes.items())
