@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import user_input_validation as u_i_v_3
+import traceback
 from recipe_functions import *
 from edit_food_cat_ingredients import *
 from program_setup_load_data_exit_prog import *
@@ -27,11 +28,10 @@ def recipe_sub_menu(recipes, ingredients):
 
 def category_ingredients_sub_menu(recipes, ingredients):
     stay_in_sub_menu = True
-    print("These are the current food categories and their ingredients:")
     view_categories_and_ingredient(ingredients)
     while stay_in_sub_menu == True:
         user_in = u_i_v_3.user_input_validation_int("What do you wish to do?\n1. Add, rename or delete food categories\n2. Add, change category of, rename and delete ingredients\n3. Return to the main menu", 3)
-#        user_in = u_i_v_3.user_input_validation_int("Ingredients menu:\nWhat do you wish to do?\n1. Add new ingredient\n2. Edit ingredient\n3. Delete ingredient\n4. Return to the main menu", 4)
+#        user_in = u_i_v_3.user_input_validation_int("Ingredients menu:\nWhat do you wish to do?\n1. Add new ingredient\n2. Edit ingredient\n3. Delete ingredient\n4. Return to the main menu\n", 4)
         if user_in == 1:
             user_in = u_i_v_3.user_input_validation_int("What do you wish to do?\n1. View categories and ingredients again\n2. Add a food category\n3. Rename food category\n4. Delete food category\n5. Exit", 5)
             if user_in == 1:
@@ -45,7 +45,7 @@ def category_ingredients_sub_menu(recipes, ingredients):
             elif user_in == 5:
                 return [recipes, ingredients]
         elif user_in == 2:
-            user_in = u_i_v_3.user_input_validation_int("What do you wish to do?\n1. View categories and ingredients again\n2. Add new ingredients? \n3. Rename ingredients\n4. Delete ingredients\n5. Exit", 5)
+            user_in = u_i_v_3.user_input_validation_int("What do you wish to do?\n1. View categories and ingredients again\n2. Add new ingredients \n3. Rename ingredients\n4. Change ingredient category\n5. Delete ingredients\n6. Exit", 6)
             if user_in == 1:
                 view_categories_and_ingredient(ingredients)
             elif user_in == 2:
@@ -53,8 +53,10 @@ def category_ingredients_sub_menu(recipes, ingredients):
             elif user_in == 3:
                 ingredients = rename_ingredient(ingredients)
             elif user_in == 4:
-                ingredients = delete_ingredient(ingredients)
+                recipes, ingredients = change_ingredient_category(recipes, ingredients) 
             elif user_in == 5:
+                ingredients = delete_ingredient(ingredients)
+            elif user_in == 6:
                 return [recipes, ingredients]
         elif user_in == 3:
             return [recipes, ingredients]
@@ -79,29 +81,32 @@ def main_menu(default_wd, meal_plans, recipes, ingredients,  meal_planner, meal_
     print("Welcome to your Food Planner program!")
     stay_in_program = True
     while stay_in_program == True:
-        user_in = u_i_v_3.user_input_validation_int("Main menu:\n1. Recipes: view, add, edit, delete, see ingredients \n2. Food categories: view, add, edit, delete\n3. Ingredients: add, edit, delete\n4. Food plan and shopping list\n5. Preferences\n6.Exit program\n", 6)
+        user_in = u_i_v_3.user_input_validation_int("Main menu:\n1. Recipes: view, add, edit, delete, see ingredients\n2. Food categories and ingredients: view, add, edit, delete\n3. Food plan and shopping list\n4. Preferences\n5. Exit program\n", 5)
         if user_in == 1:
             try:  
                 recipes, ingredients = recipe_sub_menu(recipes, ingredients) 
-            except Exception as e: 
-                print(e)
+            except Exception: 
+                traceback.print_exc()
         elif user_in == 2:
             try:  
                 recipes, ingredients = category_ingredients_sub_menu(recipes, ingredients) 
-            except Exception as e: 
-                print(e)
+            except Exception: 
+                traceback.print_exc()    
         elif user_in == 3:
-            meal_planner, meal_plans_saved, reg_shopping_list = meal_panner_sub_menu(meal_planner, meal_plans_saved, recipes, ingredients, reg_shopping_list, user_pref)
+            try:
+                meal_planner, meal_plans_saved, reg_shopping_list = meal_panner_sub_menu(meal_planner, meal_plans_saved, recipes, ingredients, reg_shopping_list, user_pref)
+            except Exception: 
+                traceback.print_exc()
         elif user_in == 4:
             try:  
                 user_pref = set_meal_planner_preferences(user_pref)
-            except Exception as e: 
-                print(e)
+            except Exception: 
+                traceback.print_exc()
         elif user_in == 5:
             try:  
                 stay_in_program = exit_program(default_wd, meal_plans, recipes, ingredients, meal_planner, meal_plans_saved, reg_shopping_list, user_pref)
-            except Exception as e: 
-                print(e)
+            except Exception: 
+                traceback.print_exc()
         else:
             print("Unexpected error: 1")
 

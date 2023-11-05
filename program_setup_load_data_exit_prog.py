@@ -7,7 +7,7 @@ def program_setup():
     while file_not_loading == True:
         try:
             with open('savedRecipes.pkl', 'rb') as file:
-                default_wd, meal_plans, recipes, ingredients, meal_planner, meal_plans_saved, user_pref = pickle.load(file)
+                default_wd, meal_plans, recipes, ingredients, meal_planner, meal_plans_saved, reg_shopping_list, user_pref = pickle.load(file)
             file_not_loading = False
         except:
             print("Your Food Planner data has not run in this directory yet:\n" + os.getcwd() +"\nPerforming first time setup...") 

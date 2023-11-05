@@ -10,7 +10,7 @@ def view_categories_and_ingredient(ingredients):
         for food_ingredient in ingredients[food_cat].keys():
             list_of_ingredients.append(food_ingredient)
         list_of_ingredients.sort()
-        print(counter, food_cat, ": " , ", ".join(list_of_ingredients), "\n")
+        print(counter, ".", food_cat, ": " , ", ".join(list_of_ingredients), "\n")
     return counter
 
 def view_food_cat(ingredients):
@@ -189,7 +189,7 @@ def rename_ingredient(ingredients, recipes):
                 recipes[recipe_][category][ingredient_edited] = ingredient_quantity
     return [recipes, ingredients]
 
-def change_ingredient_category(ingredients, recipes):
+def change_ingredient_category(recipes, ingredients):
     counter, list_of_ingredients = view_ingredients_only_list(ingredients)
     ingred_i = u_i_v_2.user_input_validation_int("Which ingredient do you want to move? ", counter)
     if ingred_i == "exit":
@@ -209,7 +209,7 @@ def change_ingredient_category(ingredients, recipes):
             previous_ingred_value = recipes[recipe_][ingred_to_delete_from][list_of_ingredients[ingred_i-1]]
             del recipes[recipe_][ingred_to_delete_from][list_of_ingredients[ingred_i-1]]
             recipes[recipe_][new_category][list_of_ingredients[ingred_i-1]] = previous_ingred_value
-    return [ingredients, recipes]
+    return [recipes, ingredients]
 
 
 def delete_ingredient(ingredients):

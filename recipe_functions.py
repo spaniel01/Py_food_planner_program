@@ -104,7 +104,6 @@ def add_ingredient_sub_cat(recipe_, main_cat):
     quantity = u_i_v.user_input_validation_is_number("Input your desired quantity (in grams or units): ")
     if quantity == "exit":
         return quantity
-    print("ERROR SEARCH: ", quantity, recipe_[main_cat][list(recipe_[main_cat].keys())[int(minor_cat_number)-1]])
     recipe_[main_cat][list(recipe_[main_cat].keys())[int(minor_cat_number)-1]] = int(quantity)
     return recipe_
 ### add_recipe() end
