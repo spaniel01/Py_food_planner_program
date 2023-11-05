@@ -19,6 +19,7 @@ def recipe_sub_menu(recipes, ingredients):
             recipes = add_recipe(recipes, ingredients)
         elif user_in == 4:
             recipes = edit_recipe(recipes)
+            print(recipes)
         elif user_in == 5:
             recipes = delete_recipe(recipes)
         elif user_in == 6:

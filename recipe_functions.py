@@ -1,5 +1,6 @@
 import copy
 import user_input_validation as u_i_v
+import numpy as np
 
 def view_exising_recipes(recipes):
     if len(recipes.keys()) == 0:
@@ -23,14 +24,13 @@ def show_recipe_ingredients(recipes):
             if recipe_num == "exit":
                 return recipes
             counter = 0
-            if len(recipes[list(recipes.keys())[int(recipe_num)-1]].keys()) > 0:
-                for key in recipes[list(recipes.keys())[int(recipe_num)-1]].keys():
-                    for key_internal, value in recipes[list(recipes.keys())[int(recipe_num)-1]][key].items():
-                        if value > 0:
-                            counter += 1
-                            print(str(counter) + ". " + key_internal + ", " + str(value))
-            else:
-                print("This recipe has not ingredients to show!")
+            for key in recipes[list(recipes.keys())[int(recipe_num)-1]].keys():
+                for key_internal, value in recipes[list(recipes.keys())[int(recipe_num)-1]][key].items():
+                    if value > 0:
+                        counter += 1
+                        print(str(counter) + ". " + key_internal + ", " + str(value))
+        if counter == 0:
+            print("This recipe has no ingredients to show!")
 
 ### add_recipe
 def add_recipe(recipes, ingredients):    
@@ -156,9 +156,12 @@ def edit_recipe(recipes):
                     key_for_deletion = user_in
                     user_in = u_i_v.user_input_validation_y_n("Is " + key_for_deletion + " the ingredient you want to delete? Answer with 'y' or 'no': ")
                     if user_in == "y":
-                        recipes[recipe_name][key].update({key_for_deletion:0})
+                        for key in recipes[recipe_name].keys(): #PROBLEM WAS: wrong category key
+                            for key_internal, value in recipes[recipe_name][key].items():
+                                if key_internal == key_for_deletion:
+                                    cat_key_for_deletion = key
+                        recipes[recipe_name][cat_key_for_deletion].update({key_for_deletion:0})
                         print(key_for_deletion, " deleted!!!")
-                        print(recipes[recipe_name][key][key_for_deletion])
                         return recipes
             elif user_in == 4:
                 print(recipes.items())
